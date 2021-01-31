@@ -1,0 +1,42 @@
+html, body {
+  margin: 0;
+  padding: 0;
+  background-color: rgb(100,100,100)
+}
+canvas {
+  display: block;
+  border-radius: 10px;
+  box-shadow: 0 0 3px black;
+}
+
+.body {
+  max-width: 700px;
+  margin: auto;
+  padding: 0px;
+  background-color: rgb(200,200,200);
+}
+
+#drawing {
+  display: inline-block;
+}
+
+.content {
+  padding: 15px;
+}
+
+.footer {
+  color: rgb(255,255,255);
+  background-color: rgb(50,50,50);
+  width: fill;
+  padding: 10px;
+  align-content: center;
+}
+
+#hover-popup {
+  position: absolute;
+  display: block;
+  border-radius: 10px;
+  padding: 3px;
+  pointer-events: none;
+  background-color: rgba(255,255,255,0.5);
+}
