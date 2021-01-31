@@ -23,11 +23,13 @@
   <div class="body">
     <div class="content">
       <center>
-        <h1>The congruence subgroups of \(\operatorname{SL}_2(\mathbb{Z})\)</h1>
+        <h1>The congruence subgroups of \(\operatorname{PSL}_2(\mathbb{Z})\)</h1>
       </center>
+	  <p>
       Fundamental domain in the upper Halfplane \(\mathbb{H}\):
 
-      We use the Funndamental domain defined by the corner points at \(\{e^{\pi i/3},e^{2\pi i / 3},\infty\}\)
+      We use the Funndamental domain defined by the corner points at \(\{e^{\pi i/3},e^{2\pi i / 3},\infty\}\).
+	  </p>
       <div style="text-align: center">
         <div id="drawing">
         </div>
@@ -37,13 +39,22 @@
       <script src="sketch.js"></script>
       <P>
       <FORM NAME="myform" ACTION="" METHOD="GET">
-        <span id="groupLabel">\(\Gamma_0(\)</span><INPUT TYPE="number" NAME="level" VALUE="5" style="width:3.5em">\()\)<INPUT TYPE="button" NAME="button" Value="Update" onClick="halfplane.changeLevel(this.form)">
+        <span id="groupLabel">\(\Gamma_0\)</span>\((\)<INPUT TYPE="number" NAME="level" VALUE="5" style="width:3.5em">\()\)<INPUT TYPE="button" NAME="button" Value="Update level" onClick="halfplane.changeLevel(this.form)">
       </FORM>
-      <INPUT TYPE="button" NAME="asd" Value="Gamma 0" onClick="halfplane.changeGroup(math.congruenceSubgroups.Gamma_0)">
-      <INPUT TYPE="button" NAME="asd" Value="Gamma 1" onClick="halfplane.changeGroup(math.congruenceSubgroups.Gamma_1)">
-      <INPUT TYPE="button" NAME="asd" Value="Gamma  " onClick="halfplane.changeGroup(math.congruenceSubgroups.Gamma)">
-      </div>
-      <P>
+      <INPUT TYPE="button" Value="Gamma 0" onClick="halfplane.changeGroup(math.congruenceSubgroups.Gamma_0)">
+      <INPUT TYPE="button" Value="Gamma 1" onClick="halfplane.changeGroup(math.congruenceSubgroups.Gamma_1)">
+      <INPUT TYPE="button" Value="Gamma  " onClick="halfplane.changeGroup(math.congruenceSubgroups.Gamma)">
+	  
+      <p>
+	  We recommend increasing the level \(N\) not too high. For \(\Gamma_0(N)\) levels up to 2000 work quite fast.
+	  For \(\Gamma_1(N)\) we can go up to 200 without problems.
+	  <br>
+	  When using \(\Gamma(N)\) we see a big decrease in performance at levels above 20. The algorithm for finding the coset-representatives in this case are not optimized at all.
+	  </p>
+	  <p>
+	  I worked on this in mid 2020 and was planning to add zooming and panning around as well as a way to change the domain to one with cornerpoints \(\{i, e^{\pi i/3}, 1+i, \infty\}\). I dont know when I will be able to get to that.
+	  </p>
+	  </div>
       <div class="footer">
         This was build using <a href="https://katex.org/" style="color: #AAAAFF" target="_blank">\(\KaTeX\)</a> and <a href="https://p5js.org/" target="_blank"><img src="https://p5js.org/assets/img/p5js.svg" style="height:1.5em;vertical-align:-0.4em"></a>.
       </div>
