@@ -26,8 +26,8 @@ halfplane = (function() {
 
   var cosetRepr = {
     group: math.congruenceSubgroups.Gamma_0,
-    level: 4,
-    matrices: math.congruenceSubgroups.Gamma_0.cosetReprs(4),
+    level: 5,
+    matrices: math.congruenceSubgroups.Gamma_0.cosetReprs(5),
     changeLevel: function(level) {
       level = parseInt(level.elements[0].value)
       this.matrices = this.group.cosetReprs(level)
