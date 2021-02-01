@@ -1,3 +1,30 @@
+htmlVisuals = (function() {
+  return {
+    updateGroupLabel: function(group, level) {
+      groupLabel = document.getElementById("groupLabel")
+	    katex.render(group.tex, groupLabel, {throwOnError: false});
+    },
+    updateHovering: function(moebious) {
+      var popup = document.getElementById("hover-popup");
+      if(moebious == null) {
+        popup.style.display = "none"
+        return;
+      }
+      katex.render(moebious.tex(), popup, {throwOnError: false});
+      popup.style.display = "block"
+    }
+  }
+}());
+
+/* move matrix */
+document.addEventListener('mousemove', function(ev) {
+  mouseX=ev.pageX;
+  mouseY=ev.pageY;
+  popup = document.getElementById("hover-popup")
+  popup.style.left = (mouseX+10)+"px"
+  popup.style.bottom = (window.innerHeight+10-mouseY)+"px"
+});
+
 halfplane = (function() {
   var options = {
     mapping: {
@@ -33,11 +60,13 @@ halfplane = (function() {
       this.matrices = this.group.cosetReprs(level)
       this.level = level
       this.changed = true
+      htmlVisuals.updateGroupLabel(this.group, this.level)
     },
     changeGroup: function(group) {
       this.matrices = group.cosetReprs(this.level)
       this.group = group
       this.changed = true
+      htmlVisuals.updateGroupLabel(this.group, this.level)
     },
     changed: true
   }
@@ -62,10 +91,6 @@ halfplane = (function() {
     if (cosetRepr.changed) {
       cosetRepr.changed = false
       prerenderDomain()
-	  
-	  /* update label */
-	  groupLabel = document.getElementById("groupLabel")
-	  katex.render(cosetRepr.group.tex, groupLabel, {throwOnError: false});
     }
     canvas.image(domainPrerender, 0, 0)
     drawHovered(canvas)
@@ -84,7 +109,7 @@ halfplane = (function() {
 
     var p = invMapping(g.mouseX, g.mouseY)
     var M = math.congruenceSubgroups.fundamentalDomains[0].findMoebiousToDomain(p)
-    if (p.im >= 0 && M != null) {
+    if (p.im >= 0 && M != null && (0 <= g.mouseX && g.mouseX <= g.width && 0 <= g.mouseY && g.mouseY <= g.height)) {
       var ind = cosetRepr.group.cosetReprIndexIn(cosetRepr.level, cosetRepr.matrices, M.inv())
       if (ind != -1) {
         var M2 = cosetRepr.matrices[ind]
@@ -98,12 +123,13 @@ halfplane = (function() {
       useStyle(g, options.style.hover)
       drawDomain(g, math.congruenceSubgroups.fundamentalDomains[0], M2)
 
-      if (M2.m[1][0] != 0) {
+      /* Annotate cusp */
+      if (M2.m[2] != 0) {
         canvas.strokeWeight(0)
         canvas.fill(0)
         canvas.stroke(0)
-        var p = M2.m[0][0]
-        var q = M2.m[1][0]
+        var p = M2.m[0]
+        var q = M2.m[2]
         if (p / q != 0 && p / q != 0.5) {
 
           var d = gcd(q, p)
@@ -114,6 +140,10 @@ halfplane = (function() {
           annotateX(canvas, p / d, q / d)
         }
       }
+
+      htmlVisuals.updateHovering(M2)
+    } else {
+      htmlVisuals.updateHovering(null)
     }
   }
 
@@ -241,9 +271,7 @@ halfplane = (function() {
     sketch: sketch,
     p5: canvas
   }
-}())
-
-
+}());
 
 
 

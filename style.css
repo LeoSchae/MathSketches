@@ -34,7 +34,7 @@ canvas {
 
 #hover-popup {
   position: absolute;
-  display: block;
+  display: none;
   border-radius: 10px;
   padding: 3px;
   pointer-events: none;

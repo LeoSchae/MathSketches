@@ -103,6 +103,10 @@ const math = (function() {
       var m = this.m
       return new Moebious(m[3],-m[1],-m[2],m[0])
     }
+    tex() {
+      var m = this.m
+      return "\\begin{pmatrix}"+m[0]+"&"+m[1]+"\\\\"+m[2]+"&"+m[3]+"\\end{pmatrix}"
+    }
   }
 
 
