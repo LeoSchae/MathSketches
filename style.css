@@ -1,8 +1,14 @@
+:root {
+  --accentColor: #326496;
+}
+
 html, body {
   margin: 0;
   padding: 0;
-  background-color: rgb(100,100,100)
+  background-color: rgb(100,100,100);
+  font: 15px Sans-Serif;
 }
+
 canvas {
   display: block;
   border-radius: 10px;

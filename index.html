@@ -38,14 +38,15 @@
       <script src="math.js"></script>
       <script src="sketch.js"></script>
       <P>
-      <FORM NAME="myform" ACTION="" METHOD="GET">
-        <span id="groupLabel">\(\Gamma_0\)</span>\((\)<INPUT TYPE="number" NAME="level" VALUE="5" style="width:3.5em">\()\)<INPUT TYPE="button" NAME="button" Value="Update level" onClick="halfplane.changeLevel(this.form)">
+      <FORM NAME="myform" method="" action="javascript:" onsubmit="halfplane.changeLevel(this.level.value)">
+        Change level to: <span id="groupLabel">\(\Gamma_0\)</span>\((\)<input TYPE="number" NAME="level" VALUE="5" style="width:3.5em">\()\)<button type="submit">Update Level</button>
       </FORM>
-      <INPUT TYPE="button" Value="Gamma 0" onClick="halfplane.changeGroup(math.congruenceSubgroups.Gamma_0)">
-      <INPUT TYPE="button" Value="Gamma 1" onClick="halfplane.changeGroup(math.congruenceSubgroups.Gamma_1)">
-      <INPUT TYPE="button" Value="Gamma  " onClick="halfplane.changeGroup(math.congruenceSubgroups.Gamma)">
+      Change group to:
+      <button onClick="halfplane.changeGroup(math.congruenceSubgroups.Gamma_0)">\(\Gamma_0\)</button>
+      <button onClick="halfplane.changeGroup(math.congruenceSubgroups.Gamma_1)">\(\Gamma_1\)</button>
+      <button onClick="halfplane.changeGroup(math.congruenceSubgroups.Gamma)">\(\Gamma\)</button>
 	  
-      <p>
+    <p>
 	  We recommend increasing the level \(N\) not too high. For \(\Gamma_0(N)\) levels up to 2000 work quite fast.
 	  For \(\Gamma_1(N)\) we can go up to 200 without problems.
 	  <br>

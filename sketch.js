@@ -1,3 +1,5 @@
+const accentColor = [50,100,150];
+
 htmlVisuals = (function() {
   return {
     updateGroupLabel: function(group, level) {
@@ -34,13 +36,13 @@ halfplane = (function() {
     hoverInfo: true,
     style: {
       domain: {
-        fill: [255, 100, 100, 100],
-        stroke: [200, 50, 50, 100],
+        fill: [...accentColor, 100],
+        stroke: [...accentColor, 100],
         strokeWeight: 1
       },
       hover: {
         fill: null,
-        stroke: [200, 50, 50, 150],
+        stroke: [...accentColor, 150],
         strokeWeight: 3
       }
     }
@@ -56,7 +58,7 @@ halfplane = (function() {
     level: 5,
     matrices: math.congruenceSubgroups.Gamma_0.cosetReprs(5),
     changeLevel: function(level) {
-      level = parseInt(level.elements[0].value)
+      level = parseInt(level)
       this.matrices = this.group.cosetReprs(level)
       this.level = level
       this.changed = true
@@ -80,7 +82,7 @@ halfplane = (function() {
   }
 
   function setup(p) {
-    renderer = p.createCanvas(400, 400)
+    var renderer = p.createCanvas(400, 400)
     domainPrerender = p.createGraphics(400, 400)
     renderer.id("canvasPlane")
     p.textFont("Computer Modern")
