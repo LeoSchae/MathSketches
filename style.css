@@ -1,12 +1,19 @@
 :root {
-  --accentColor: #326496;
+  --accent: #456381;
+  --accent-light: #b6cce2;
+  --accent-dimmed: #273b4e;
+  --accent-dark: #0c1b29;
 }
 
 html, body {
   margin: 0;
   padding: 0;
-  background-color: rgb(100,100,100);
-  font: 15px Sans-Serif;
+  background-color: var(--accent-dimmed);
+  font: 12pt Sans-Serif;
+}
+
+h1 {
+  color: var(--accent-dark);
 }
 
 canvas {
@@ -31,11 +38,12 @@ canvas {
 }
 
 .footer {
-  color: rgb(255,255,255);
-  background-color: rgb(50,50,50);
+  color: var(--accent-light);
+  background-color: var(--accent-dark);
   width: fill;
   padding: 10px;
   align-content: center;
+  font-size: 9pt;
 }
 
 #hover-popup {
