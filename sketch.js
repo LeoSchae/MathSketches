@@ -271,6 +271,7 @@ halfplane = (function() {
         var d = event.delta;
         options.mapping.scale = options.mapping.scale*(Math.exp(-0.001*d));
         options.mapping.changed = true;
+        return false;
     };
     p.mouseDragged = function(event) {
       if(!dragFromCanvas) {
@@ -279,6 +280,7 @@ halfplane = (function() {
       var d = event.movementX;
       options.mapping.origin[0] = options.mapping.origin[0]+d;
       options.mapping.changed = true;
+      return false;
     };
     p.mousePressed = function(event) {
       dragFromCanvas = event.srcElement.id == htmlCanvasId;
