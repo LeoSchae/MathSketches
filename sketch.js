@@ -34,8 +34,23 @@ halfplane = (function() {
   var options = {
     mapping: {
       scale: 200,
+      scalingCenter: [200, 350],
       origin: [200, 350],
       changed: false,
+      translateBy: function(dx, dy) {
+        var o = this.origin;
+        o[0] += dx;
+        o[1] += dy;
+        this.changed = true;
+      },
+      zoomBy: function (factor) {
+        var o = this.origin;
+        var sz = this.scalingCenter;
+        o[0] = o[0]*factor + sz[0]*(1-factor)
+        o[1] = o[1]*factor + sz[1]*(1-factor)
+        this.scale *= factor;
+        this.changed = true;
+      },
     },
     hoverInfo: true,
     style: {
@@ -269,8 +284,7 @@ halfplane = (function() {
           return;
         }
         var d = event.delta;
-        options.mapping.scale = options.mapping.scale*(Math.exp(-0.001*d));
-        options.mapping.changed = true;
+        options.mapping.zoomBy(Math.exp(-0.001*d))
         return false;
     };
     p.mouseDragged = function(event) {
@@ -278,8 +292,7 @@ halfplane = (function() {
         return;
       }
       var d = event.movementX;
-      options.mapping.origin[0] = options.mapping.origin[0]+d;
-      options.mapping.changed = true;
+      options.mapping.translateBy(d,0);
       return false;
     };
     p.mousePressed = function(event) {
