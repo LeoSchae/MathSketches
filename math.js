@@ -73,6 +73,7 @@ const math = (function() {
     }
   }
 
+  /* Only works for ad-bc = 1. Otherwise the inverse breaks */
   class Moebious {
     constructor(a, b, c, d) {
       this.mtype = MoebiousType
