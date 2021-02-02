@@ -1,4 +1,6 @@
 const accentColor = [50,100,150];
+const htmlCanvasId = "canvasPlane";
+/* DOM interaction */
 
 htmlVisuals = (function() {
   return {
@@ -18,7 +20,6 @@ htmlVisuals = (function() {
   }
 }());
 
-/* move matrix */
 document.addEventListener('mousemove', function(ev) {
   mouseX=ev.pageX;
   mouseY=ev.pageY;
@@ -27,23 +28,26 @@ document.addEventListener('mousemove', function(ev) {
   popup.style.bottom = (window.innerHeight+10-mouseY)+"px"
 });
 
+/* Canvas and drawing */
+
 halfplane = (function() {
   var options = {
     mapping: {
       scale: 200,
-      origin: [200, 350]
+      origin: [200, 350],
+      changed: false,
     },
     hoverInfo: true,
     style: {
       domain: {
         fill: [...accentColor, 100],
         stroke: [...accentColor, 100],
-        strokeWeight: 1
+        strokeWeight: 1,
       },
       hover: {
         fill: null,
         stroke: [...accentColor, 150],
-        strokeWeight: 3
+        strokeWeight: 3,
       }
     }
   }
@@ -84,14 +88,15 @@ halfplane = (function() {
   function setup(p) {
     var renderer = p.createCanvas(400, 400)
     domainPrerender = p.createGraphics(400, 400)
-    renderer.id("canvasPlane")
+    renderer.id(htmlCanvasId)
     p.textFont("Computer Modern")
   }
 
   function draw(p) {
     canvas.background(255)
-    if (cosetRepr.changed) {
+    if (cosetRepr.changed || options.mapping.changed) {
       cosetRepr.changed = false
+      options.mapping.changed = false
       prerenderDomain()
     }
     canvas.image(domainPrerender, 0, 0)
@@ -247,18 +252,37 @@ halfplane = (function() {
     g.text("Re", width - 3, orig[1] + 3)
     g.text("Im", orig[0] - 3, 3)
     g.text("0", orig[0] - 3, orig[1] + 3)
-    var p = mapping(new math.Complex(1))
-    //g.text("1",p[0],p[1]+3)
+
     annotateX(g, 1, 2)
   }
 
   sketch = function(p) {
+    var dragFromCanvas = false;
     p.setup = function() {
       setup(p)
-    }
+    };
     p.draw = function() {
       draw(p)
-    }
+    };
+    p.mouseWheel = function(event) {
+        if(event.srcElement.id != htmlCanvasId) {
+          return;
+        }
+        var d = event.delta;
+        options.mapping.scale = options.mapping.scale*(Math.exp(-0.001*d));
+        options.mapping.changed = true;
+    };
+    p.mouseDragged = function(event) {
+      if(!dragFromCanvas) {
+        return;
+      }
+      var d = event.movementX;
+      options.mapping.origin[0] = options.mapping.origin[0]+d;
+      options.mapping.changed = true;
+    };
+    p.mousePressed = function(event) {
+      dragFromCanvas = event.srcElement.id == htmlCanvasId;
+    };
   }
   canvas = new p5(sketch, "drawing")
 
