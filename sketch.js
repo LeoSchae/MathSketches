@@ -284,6 +284,10 @@ halfplane = (function() {
           return;
         }
         var d = event.delta;
+        // Firefox line based scrolling (deltaMode=0 for pixel scrolling)
+        if (event.deltaMode == 1) { 
+            d = d*33.33; // 100/3 is the default factor on windows
+        }
         options.mapping.zoomBy(Math.exp(-0.001*d))
         return false;
     };
